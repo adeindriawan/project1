@@ -1,0 +1,4 @@
+{"_id":{"$oid":"59b583118557e9d53b813472"},"username":"admin1","password":"admin"}
+{"_id":{"$oid":"59b62bee8fae8627dcdb7002"},"username":"user1","password":"pass1","__v":0}
+{"_id":{"$oid":"59b6302d430f2c23cc191e41"},"username":"user2","password":"pass2","__v":0}
+{"_id":{"$oid":"59b633a714f2081e5c4f94ac"},"username":"user3","password":"pass3","__v":0}

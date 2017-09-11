@@ -1,0 +1,13 @@
+{"_id":{"$oid":"59af8d007fa1f2e616797a68"},"name":"teknik informatika","category":"teknik"}
+{"_id":{"$oid":"59af9435dcbb4b4991719445"},"name":"teknik industri","category":"teknik"}
+{"_id":{"$oid":"59af949fdcbb4b4991719446"},"name":"manajemen keuangan","category":"bisnis"}
+{"_id":{"$oid":"59af94aadcbb4b4991719447"},"name":"manajemen pemasaran","category":"bisnis"}
+{"_id":{"$oid":"59af94b9dcbb4b4991719448"},"name":"manajemen operasional","category":"bisnis"}
+{"_id":{"$oid":"59af94c7dcbb4b4991719449"},"name":"manajemen sdm","category":"bisnis"}
+{"_id":{"$oid":"59af94d9dcbb4b499171944a"},"name":"teknik elektro","category":"teknik"}
+{"_id":{"$oid":"59af94e3dcbb4b499171944b"},"name":"teknik mesin","category":"teknik"}
+{"_id":{"$oid":"59af950fdcbb4b499171944c"},"name":"mikroekonomi","category":"ekonomi"}
+{"_id":{"$oid":"59af9515dcbb4b499171944d"},"name":"makroekonomi","category":"ekonomi"}
+{"_id":{"$oid":"59af9535dcbb4b499171944e"},"name":"seni lukis","category":"seni \u0026 desain"}
+{"_id":{"$oid":"59af9543dcbb4b499171944f"},"name":"seni pahat","category":"seni \u0026 desain"}
+{"_id":{"$oid":"59af9550dcbb4b4991719450"},"name":"desain grafis","category":"seni \u0026 desain"}
