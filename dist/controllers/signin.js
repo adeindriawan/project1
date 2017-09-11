@@ -44,7 +44,17 @@ var signin = exports.signin = function signin(req, res) {
         if (!user) {
             res.status(401).send({ success: false, msg: 'Authentication failed. User not found.' });
         } else {
-            res.status(401).send({ success: true, msg: 'Authentication success' });
+            // check if password matches
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if (isMatch && !err) {
+                    // if user is found and password is right, create a token
+                    var token = _jsonwebtoken2.default.sign({ data: user }, _database2.default.secret);
+                    // return the information including token as JSON
+                    res.json({ success: true, token: 'JWT ' + token });
+                } else {
+                    res.status(401).send({ success: false, msg: 'Authentication failed. Wrong password!' });
+                }
+            });
         }
     });
 };

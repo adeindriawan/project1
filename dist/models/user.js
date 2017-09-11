@@ -32,34 +32,35 @@ var UserSchema = new _mongoose.Schema({
     }
 });
 
-// UserSchema.pre('save', (next) => {
-//     let user = this
-//     if (user.isModified('password') || user.isNew) {
-//         bcrypt.genSalt(10, (err, salt) => {
-//             if (err) {
-//                 return next(err)
-//             }
-//             bcrypt.hash(user.password, salt, null, (err, hash) => {
-//                 if (err) {
-//                     return next(err)
-//                 }
-//                 user.password = hash
-//                 next()
-//             })
-//         })
-//     } else {
-//         return next()
-//     }
-// })
+UserSchema.pre('save', function (next) {
+    var user = this;
+    console.log(this);
+    if (user.isModified('password') || user.isNew) {
+        _bcryptNodejs2.default.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
+            }
+            _bcryptNodejs2.default.hash(user.password, salt, null, function (err, hash) {
+                if (err) {
+                    return next(err);
+                }
+                user.password = hash;
+                next();
+            });
+        });
+    } else {
+        return next();
+    }
+});
 
-// UserSchema.methods.comparePassword = (pass, cb) => {
-//     bcrypt.compare(passw, this.password, (err, isMatch) => {
-//         if (err) {
-//             return cb(err)
-//         }
-//         cb(null, isMatch)
-//     })
-// }
+UserSchema.methods.comparePassword = function (passw, cb) {
+    _bcryptNodejs2.default.compare(passw, this.password, function (err, isMatch) {
+        if (err) {
+            return cb(err);
+        }
+        cb(null, isMatch);
+    });
+};
 
 var User = _mongoose2.default.model('user', UserSchema, 'user');
 

@@ -42,6 +42,6 @@ app.get('/', function (req, res) {
 app.use('/v1', _router2.default);
 
 // Launch the server on port 3000
-var server = app.listen(3000, function () {
+var server = app.listen(process.env.PORT || 5000, function () {
   console.log('Listening at application server');
 });

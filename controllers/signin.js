@@ -18,7 +18,17 @@ export const signin = (req, res) => {
         if (!user) {
             res.status(401).send({success: false, msg: 'Authentication failed. User not found.'})
         } else {
-            res.status(401).send({success: true, msg: 'Authentication success'})
+            // check if password matches
+            user.comparePassword(req.body.password, (err, isMatch) => {
+                if (isMatch && !err) {
+                    // if user is found and password is right, create a token
+                    let token = jwt.sign({data: user}, config.secret)
+                    // return the information including token as JSON
+                    res.json({success: true, token: 'JWT ' + token})
+                } else {
+                    res.status(401).send({success: false, msg: 'Authentication failed. Wrong password!'})
+                }
+            })
         }
     })
 }
