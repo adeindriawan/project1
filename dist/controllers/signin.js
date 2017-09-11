@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.signup = undefined;
+exports.signin = undefined;
 
 var _mongoose = require('mongoose');
 
@@ -21,6 +21,10 @@ var _passport3 = require('../config/passport');
 
 var _passport4 = _interopRequireDefault(_passport3);
 
+var _jsonwebtoken = require('jsonwebtoken');
+
+var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+
 var _user = require('../models/user');
 
 var _user2 = _interopRequireDefault(_user);
@@ -29,20 +33,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var psp = (0, _passport4.default)(_passport2.default);
 
-var signup = exports.signup = function signup(req, res) {
-    if (!req.body.username || !req.body.password) {
-        res.json({ success: false, msg: 'Please pass username and password.' });
-    } else {
-        var newUser = new _user2.default({
-            username: req.body.username,
-            password: req.body.password
-        });
-        // save the user
-        newUser.save(function (err) {
-            if (err) {
-                return res.json({ success: false, msg: 'Username already exists.' });
-            }
-            res.json({ success: true, msg: 'Successfully created new user.' });
-        });
-    }
+var signin = exports.signin = function signin(req, res) {
+    _user2.default.findOne({
+        username: req.body.username
+    }, function (err, user) {
+        if (err) {
+            throw err;
+        }
+
+        if (!user) {
+            res.status(401).send({ success: false, msg: 'Authentication failed. User not found.' });
+        } else {
+            res.status(401).send({ success: true, msg: 'Authentication success' });
+        }
+    });
 };

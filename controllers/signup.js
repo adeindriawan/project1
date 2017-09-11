@@ -2,8 +2,6 @@ import mongoose from 'mongoose'
 import passport from 'passport'
 import config from '../config/database'
 import conpas from '../config/passport'
-import express, { Router } from 'express'
-import jwt from 'jsonwebtoken'
 import User from '../models/user'
 
 var psp = conpas(passport)
