@@ -14,6 +14,26 @@ var UserSchema = new Schema({
         type: String,
         required: true,
     },
+    first_name: {
+        type: String,
+        required: true,
+    },
+    last_name: {
+        type: String,
+        required: false,
+    },
+    gender: {
+        type: String,
+        required: true,
+    },
+    date_of_birth: {
+        type: Date,
+        required: true,
+    },
+    role: {
+        type: String,
+        required: true,
+    }
 })
 
 UserSchema.pre('save', function (next) {
