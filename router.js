@@ -4,6 +4,7 @@ import { index } from './controllers/index'
 import { signup } from './controllers/signup'
 import { signin } from './controllers/signin'
 import { users } from './controllers/users'
+import { categories } from './controllers/categories'
 
 const app = express();
 // initialize the router
@@ -14,5 +15,6 @@ router.route('/').get(index)
 router.route('/signup').post(signup)
 router.route('/signin').post(signin)
 router.route('/users').get(users)
+router.route('/categories').get(categories)
 
 export default router;

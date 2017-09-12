@@ -16,6 +16,8 @@ var _signin = require('./controllers/signin');
 
 var _users = require('./controllers/users');
 
+var _categories = require('./controllers/categories');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -27,5 +29,6 @@ router.route('/').get(_index.index);
 router.route('/signup').post(_signup.signup);
 router.route('/signin').post(_signin.signin);
 router.route('/users').get(_users.users);
+router.route('/categories').get(_categories.categories);
 
 exports.default = router;
