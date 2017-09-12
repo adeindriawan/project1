@@ -40,7 +40,7 @@ var signup = exports.signup = function signup(req, res) {
         // save the user
         newUser.save(function (err) {
             if (err) {
-                return res.json({ success: false, msg: 'Username already exists.' });
+                return res.send(err);
             }
             res.json({ success: true, msg: 'Successfully created new user.' });
         });
