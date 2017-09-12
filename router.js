@@ -5,6 +5,7 @@ import { signup } from './controllers/signup'
 import { signin } from './controllers/signin'
 import { users } from './controllers/users'
 import { categories } from './controllers/categories'
+import { subcategories } from './controllers/subcategories'
 
 const app = express();
 // initialize the router
@@ -16,5 +17,6 @@ router.route('/signup').post(signup)
 router.route('/signin').post(signin)
 router.route('/users').get(users)
 router.route('/categories').get(categories)
+router.route('/subcategories').get(subcategories)
 
 export default router;
