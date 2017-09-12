@@ -3,6 +3,7 @@ import { Router } from 'express'
 import { index } from './controllers/index'
 import { signup } from './controllers/signup'
 import { signin } from './controllers/signin'
+import { users } from './controllers/users'
 
 const app = express();
 // initialize the router
@@ -12,5 +13,6 @@ const router = Router();
 router.route('/').get(index)
 router.route('/signup').post(signup)
 router.route('/signin').post(signin)
+router.route('/users').get(users)
 
 export default router;

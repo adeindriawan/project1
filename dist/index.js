@@ -20,6 +20,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // Initialize http server
 var app = (0, _express2.default)();
+var port = process.env.PORT || 5000;
 
 // Make the server CORS-ENABLE
 app.use(function (req, res, next) {
@@ -42,6 +43,6 @@ app.get('/', function (req, res) {
 app.use('/v1', _router2.default);
 
 // Launch the server on port 3000
-var server = app.listen(process.env.PORT || 5000, function () {
-  console.log('Listening at application server');
+var server = app.listen(port, function () {
+  console.log('Listening at application server at port ' + port);
 });

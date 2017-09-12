@@ -23,7 +23,6 @@ exports.default = function (passport) {
     var opts = {};
     opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
     opts.secretOrKey = _database2.default.secret;
-    console.log(_database2.default.secret);
     passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
         _user2.default.findOne({ id: jwt_payload.id }, function (err, user) {
             if (err) {

@@ -34,7 +34,6 @@ var UserSchema = new _mongoose.Schema({
 
 UserSchema.pre('save', function (next) {
     var user = this;
-    console.log(this);
     if (user.isModified('password') || user.isNew) {
         _bcryptNodejs2.default.genSalt(10, function (err, salt) {
             if (err) {

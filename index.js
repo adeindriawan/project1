@@ -5,6 +5,7 @@ import router from './router'
 
 // Initialize http server
 const app = express()
+const port = process.env.PORT || 5000
 
 // Make the server CORS-ENABLE
 app.use((req, res, next) => {
@@ -27,6 +28,6 @@ app.get('/', (req, res) => {
 app.use('/v1', router)
 
 // Launch the server on port 3000
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log('Listening at application server')
+const server = app.listen(port, () => {
+  console.log('Listening at application server at port ' + port)
 })
