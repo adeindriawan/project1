@@ -3,10 +3,11 @@ import { Router } from 'express'
 import { index } from './controllers/index'
 import { signup } from './controllers/signup'
 import { signin } from './controllers/signin'
-import { users } from './controllers/users'
-import { categories } from './controllers/categories'
-import { subcategories } from './controllers/subcategories'
-import { topics } from './controllers/topics'
+import { getAllUsers } from './controllers/users'
+import { getUserById } from './controllers/users'
+import { getAllCategories } from './controllers/categories'
+import { getAllSubcategories } from './controllers/subcategories'
+import { getAllTopics } from './controllers/topics'
 
 const app = express();
 // initialize the router
@@ -16,9 +17,10 @@ const router = Router();
 router.route('/').get(index)
 router.route('/signup').post(signup)
 router.route('/signin').post(signin)
-router.route('/users').get(users)
-router.route('/categories').get(categories)
-router.route('/subcategories').get(subcategories)
-router.route('/topics').get(topics)
+router.route('/users').get(getAllUsers)
+router.route('/users/:id').get(getUserById)
+router.route('/categories').get(getAllCategories)
+router.route('/subcategories').get(getAllSubcategories)
+router.route('/topics').get(getAllTopics)
 
 export default router;

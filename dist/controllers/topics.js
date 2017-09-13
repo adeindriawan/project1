@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.topics = undefined;
+exports.getAllTopics = undefined;
 
 var _topic = require('../models/topic');
 
@@ -15,7 +15,7 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var topics = exports.topics = function topics(req, res) {
+var getAllTopics = exports.getAllTopics = function getAllTopics(req, res) {
     _topic2.default.find({}, function (err, top) {
         res.json(top);
     });

@@ -24,7 +24,7 @@ export const signin = (req, res) => {
                     // if user is found and password is right, create a token
                     let token = jwt.sign({data: user}, config.secret)
                     // return the information including token as JSON
-                    res.json({success: true, token: 'JWT ' + token})
+                    res.json({success: true, token: 'JWT ' + token, data:  user})
                 } else {
                     res.status(401).send({success: false, msg: 'Authentication failed. Wrong password!'})
                 }

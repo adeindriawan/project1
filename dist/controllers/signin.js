@@ -50,7 +50,7 @@ var signin = exports.signin = function signin(req, res) {
                     // if user is found and password is right, create a token
                     var token = _jsonwebtoken2.default.sign({ data: user }, _database2.default.secret);
                     // return the information including token as JSON
-                    res.json({ success: true, token: 'JWT ' + token });
+                    res.json({ success: true, token: 'JWT ' + token, data: user });
                 } else {
                     res.status(401).send({ success: false, msg: 'Authentication failed. Wrong password!' });
                 }
