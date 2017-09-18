@@ -12,7 +12,7 @@ export const getAllUsers = (req, res) => {
                 'email': item.email,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
-                'data_of_birth': item.date_of_birth,
+                'data_of_birth': item.date_of_birth.getDate() + '-' + item.date_of_birth.getMonth()+1 + '-' + item.date_of_birth.getFullYear(),
                 'gender': item.gender,
                 'role': item.role
             })
