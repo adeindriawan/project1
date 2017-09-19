@@ -36,11 +36,12 @@ var signup = exports.signup = function signup(req, res) {
         var newUser = new _user2.default({
             username: req.body.username,
             password: req.body.password,
+            email: req.body.email,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
+            date_of_birth: req.body.date_of_birth,
             gender: req.body.gender,
-            role: req.body.role,
-            date_of_birth: req.body.date_of_birth
+            role: req.body.role
         });
         // save the user
         newUser.save(function (err) {

@@ -26,7 +26,7 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
                 'email': item.email,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
-                'data_of_birth': item.date_of_birth,
+                'date_of_birth': item.date_of_birth.getDate() + '-' + item.date_of_birth.getMonth() + 1 + '-' + item.date_of_birth.getFullYear(),
                 'gender': item.gender,
                 'role': item.role
             });
@@ -39,9 +39,19 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
     var id = req.params.id;
     var data = {};
     _user2.default.findOne({ _id: id }, function (err, user) {
-        user.map(function (item) {
-            data['id'] = item._id, data['username'] = item.username, data['password'] = item.password, data['email'] = item.email, data['first_name'] = item.first_name, data['last_name'] = item.last_name, data['date_of_birth'] = item.date_of_birth.getDate() + '-' + item.date_of_birth.getMonth() + 1 + '-' + item.date_of_birth.getFullYear(), data['gender'] = item.gender, data['role'] = item.role;
-        });
+        var dob = user.date_of_birth.getDate() + '-' + user.date_of_birth.getMonth() + 1 + '-' + user.date_of_birth.getFullYear();
+        var item = JSON.parse(JSON.stringify(user));
+
+        data['id'] = item._id;
+        data['username'] = item.username;
+        data['password'] = item.password;
+        data['email'] = item.email;
+        data['first_name'] = item.first_name;
+        data['last_name'] = item.last_name;
+        data['date_of_birth'] = dob;
+        data['gender'] = item.gender;
+        data['role'] = item.role;
+
         res.json(data);
     });
 };
