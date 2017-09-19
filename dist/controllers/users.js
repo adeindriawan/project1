@@ -26,7 +26,7 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
                 'email': item.email,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
-                'date_of_birth': item.date_of_birth.getDate() + '-' + item.date_of_birth.getMonth() + 1 + '-' + item.date_of_birth.getFullYear(),
+                'date_of_birth': item.date_of_birth.getDate() + '-' + (parseInt(item.date_of_birth.getMonth()) + parseInt(1)) + '-' + item.date_of_birth.getFullYear(),
                 'gender': item.gender,
                 'role': item.role
             });
@@ -39,7 +39,7 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
     var id = req.params.id;
     var data = {};
     _user2.default.findOne({ _id: id }, function (err, user) {
-        var dob = user.date_of_birth.getDate() + '-' + user.date_of_birth.getMonth() + 1 + '-' + user.date_of_birth.getFullYear();
+        var dob = user.date_of_birth.getDate() + '-' + (parseInt(user.date_of_birth.getMonth()) + parseInt(1)) + '-' + user.date_of_birth.getFullYear();
         var item = JSON.parse(JSON.stringify(user));
 
         data['id'] = item._id;

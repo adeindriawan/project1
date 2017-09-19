@@ -12,7 +12,7 @@ export const getAllUsers = (req, res) => {
                 'email': item.email,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
-                'date_of_birth': item.date_of_birth.getDate() + '-' + item.date_of_birth.getMonth()+1 + '-' + item.date_of_birth.getFullYear(),
+                'date_of_birth': item.date_of_birth.getDate() + '-' + (parseInt(item.date_of_birth.getMonth()) + parseInt(1)) + '-' + item.date_of_birth.getFullYear(),
                 'gender': item.gender,
                 'role': item.role
             })
@@ -25,7 +25,7 @@ export const getUserById = (req, res) => {
     let id = req.params.id
     let data = {}
     User.findOne({_id: id},  (err, user) => {
-        let dob = user.date_of_birth.getDate() + '-' + user.date_of_birth.getMonth()+1 + '-' + user.date_of_birth.getFullYear()
+        let dob = user.date_of_birth.getDate() + '-' + (parseInt(user.date_of_birth.getMonth()) + parseInt(1)) + '-' + user.date_of_birth.getFullYear()
         let item = JSON.parse(JSON.stringify(user))
 
         data['id'] = item._id
