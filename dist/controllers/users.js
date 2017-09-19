@@ -19,6 +19,11 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
     var data = { user: [] };
     _user2.default.find({}, function (err, user) {
         user.map(function (item) {
+            var month = parseInt(item.date_of_birth.getMonth()) + parseInt(1);
+            if (month < 10) month = '0' + month;
+            var day = parseInt(item.date_of_birth.getDate());
+            if (day < 10) day = '0' + day;
+            var dob = day + '-' + month + '-' + item.date_of_birth.getFullYear();
             data.user.push({
                 'id': item._id,
                 'username': item.username,
@@ -26,7 +31,7 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
                 'email': item.email,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
-                'date_of_birth': item.date_of_birth.getDate() + '-' + (parseInt(item.date_of_birth.getMonth()) + parseInt(1)) + '-' + item.date_of_birth.getFullYear(),
+                'date_of_birth': dob,
                 'gender': item.gender,
                 'role': item.role
             });
@@ -39,7 +44,11 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
     var id = req.params.id;
     var data = {};
     _user2.default.findOne({ _id: id }, function (err, user) {
-        var dob = user.date_of_birth.getDate() + '-' + (parseInt(user.date_of_birth.getMonth()) + parseInt(1)) + '-' + user.date_of_birth.getFullYear();
+        var month = parseInt(user.date_of_birth.getMonth()) + parseInt(1);
+        if (month < 10) month = '0' + month;
+        var day = parseInt(user.date_of_birth.getDate());
+        if (day < 10) day = '0' + day;
+        var dob = day + '-' + month + '-' + user.date_of_birth.getFullYear();
         var item = JSON.parse(JSON.stringify(user));
 
         data['id'] = item._id;
