@@ -5,6 +5,8 @@ import { signup } from './controllers/signup'
 import { signin } from './controllers/signin'
 import { getAllUsers } from './controllers/users'
 import { getUserById } from './controllers/users'
+import { letUserFollowTopics } from './controllers/users'
+import { makeUserFollowTopics } from './controllers/users'
 import { getAllCategories } from './controllers/categories'
 import { getAllSubcategories } from './controllers/subcategories'
 import { getAllTopics } from './controllers/topics'
@@ -22,5 +24,7 @@ router.route('/users/:id').get(getUserById)
 router.route('/categories').get(getAllCategories)
 router.route('/subcategories').get(getAllSubcategories)
 router.route('/topics').get(getAllTopics)
+router.route('/users/:id/topics/follow').get(letUserFollowTopics)
+router.route('/users/:id/topics/follow').post(makeUserFollowTopics)
 
 export default router;

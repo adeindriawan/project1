@@ -3,11 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getUserById = exports.getAllUsers = undefined;
+exports.makeUserFollowTopics = exports.letUserFollowTopics = exports.getUserById = exports.getAllUsers = undefined;
 
 var _user = require('../models/user');
 
 var _user2 = _interopRequireDefault(_user);
+
+var _topic = require('../models/topic');
+
+var _topic2 = _interopRequireDefault(_topic);
 
 var _mongoose = require('mongoose');
 
@@ -16,7 +20,7 @@ var _mongoose2 = _interopRequireDefault(_mongoose);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
-    var data = { user: [] };
+    var data = { users: [] };
     _user2.default.find({}, function (err, user) {
         user.map(function (item) {
             var month = parseInt(item.date_of_birth.getMonth()) + parseInt(1);
@@ -24,7 +28,7 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
             var day = parseInt(item.date_of_birth.getDate());
             if (day < 10) day = '0' + day;
             var dob = day + '-' + month + '-' + item.date_of_birth.getFullYear();
-            data.user.push({
+            data.users.push({
                 'id': item._id,
                 'username': item.username,
                 'password': item.password,
@@ -33,7 +37,8 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
                 'last_name': item.last_name,
                 'date_of_birth': dob,
                 'gender': item.gender,
-                'role': item.role
+                'role': item.role,
+                'topics_followed': item.topics_followed
             });
         });
         res.json(data);
@@ -60,7 +65,30 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
         data['date_of_birth'] = dob;
         data['gender'] = item.gender;
         data['role'] = item.role;
+        data['topics_followed'] = item.topics_followed;
 
         res.json(data);
+    });
+};
+
+var letUserFollowTopics = exports.letUserFollowTopics = function letUserFollowTopics(req, res) {
+    var data = { topics: [] };
+    _topic2.default.find({}, function (err, topic) {
+        topic.map(function (item) {
+            data.topics.push({
+                'id': item._id,
+                'name': item.name
+            });
+        });
+        res.json(data);
+    });
+};
+
+var makeUserFollowTopics = exports.makeUserFollowTopics = function makeUserFollowTopics(req, res) {
+    var id = req.params.id;
+    var topic = req.body.topic;
+    _user2.default.findByIdAndUpdate(id, { $set: { topics_followed: topic } }, { new: true }, function (err, user) {
+        if (err) return handleError(err);
+        res.json(user);
     });
 };

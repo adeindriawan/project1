@@ -37,5 +37,7 @@ router.route('/users/:id').get(_users.getUserById);
 router.route('/categories').get(_categories.getAllCategories);
 router.route('/subcategories').get(_subcategories.getAllSubcategories);
 router.route('/topics').get(_topics.getAllTopics);
+router.route('/users/:id/topics/follow').get(_users.letUserFollowTopics);
+router.route('/users/:id/topics/follow').post(_users.makeUserFollowTopics);
 
 exports.default = router;

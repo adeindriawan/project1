@@ -53,6 +53,9 @@ var UserSchema = new _mongoose.Schema({
     role: {
         type: String,
         required: true
+    },
+    topics_followed: {
+        type: Array
     }
 });
 

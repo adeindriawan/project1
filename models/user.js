@@ -37,6 +37,9 @@ var UserSchema = new Schema({
     role: {
         type: String,
         required: true,
+    },
+    topics_followed: {
+        type: Array,
     }
 })
 

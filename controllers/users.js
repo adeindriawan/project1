@@ -1,8 +1,9 @@
 import User from '../models/user'
+import Topic from '../models/topic'
 import mongoose from 'mongoose'
 
 export const getAllUsers = (req, res) => {
-    let data = { user: [], }
+    let data = { users: [], }
     User.find({},  (err, user) => {
         user.map((item) => {
             let month = parseInt(item.date_of_birth.getMonth()) + parseInt(1)
@@ -10,7 +11,7 @@ export const getAllUsers = (req, res) => {
             let day = parseInt(item.date_of_birth.getDate())
             if (day < 10) day = '0' + day
             let dob = day + '-' + month + '-' + item.date_of_birth.getFullYear()
-            data.user.push({
+            data.users.push({
                 'id': item._id,
                 'username': item.username,
                 'password': item.password,
@@ -19,7 +20,8 @@ export const getAllUsers = (req, res) => {
                 'last_name': item.last_name,
                 'date_of_birth': dob,
                 'gender': item.gender,
-                'role': item.role
+                'role': item.role,
+                'topics_followed': item.topics_followed
             })
         })
         res.json(data)
@@ -46,7 +48,30 @@ export const getUserById = (req, res) => {
         data['date_of_birth'] = dob
         data['gender'] = item.gender
         data['role'] = item.role
+        data['topics_followed'] = item.topics_followed
         
         res.json(data)
+    })
+}
+
+export const letUserFollowTopics = (req, res) => {
+    let data = { topics: [], }
+    Topic.find({}, (err, topic) => {
+        topic.map((item) => {
+            data.topics.push({
+                'id': item._id,
+                'name': item.name
+            })
+        })
+        res.json(data)
+    })
+}
+
+export const makeUserFollowTopics = (req, res) => {
+    let id = req.params.id
+    let topic = req.body.topic
+    User.findByIdAndUpdate(id, {$set: {topics_followed: topic}}, {new: true}, (err, user) => {
+        if (err) return handleError(err)
+        res.json(user)
     })
 }
