@@ -55,12 +55,24 @@ export const getUserById = (req, res) => {
 }
 
 export const letUserFollowTopics = (req, res) => {
-    let data = { topics: [], }
+    let data = { 
+        all_topics: [],
+        topics_followed: [],
+    }
+    let id = req.params.id
     Topic.find({}, (err, topic) => {
         topic.map((item) => {
-            data.topics.push({
+            data.all_topics.push({
                 'id': item._id,
                 'name': item.name
+            })
+        })
+    })
+    User.find({_id: id}, (err, user) => {
+        let item = JSON.parse(JSON.stringify(user))
+        item.map((el) => {
+            data.topics_followed.push({
+                'id': el.topics_followed
             })
         })
         res.json(data)

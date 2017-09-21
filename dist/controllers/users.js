@@ -72,12 +72,24 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
 };
 
 var letUserFollowTopics = exports.letUserFollowTopics = function letUserFollowTopics(req, res) {
-    var data = { topics: [] };
+    var data = {
+        all_topics: [],
+        topics_followed: []
+    };
+    var id = req.params.id;
     _topic2.default.find({}, function (err, topic) {
         topic.map(function (item) {
-            data.topics.push({
+            data.all_topics.push({
                 'id': item._id,
                 'name': item.name
+            });
+        });
+    });
+    _user2.default.find({ _id: id }, function (err, user) {
+        var item = JSON.parse(JSON.stringify(user));
+        item.map(function (el) {
+            data.topics_followed.push({
+                'id': el.topics_followed
             });
         });
         res.json(data);
