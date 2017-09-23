@@ -1,11 +1,19 @@
 import express from 'express'
 import passport from 'passport'
 import bodyParser from 'body-parser'
+import session from 'express-session'
 import router from './router'
 
 // Initialize http server
 const app = express()
 const port = process.env.PORT || 5000
+
+//config session and initialize it
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+}
+app.use(session(sess))
 
 // Make the server CORS-ENABLE
 app.use((req, res, next) => {

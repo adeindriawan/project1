@@ -72,28 +72,33 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
 };
 
 var letUserFollowTopics = exports.letUserFollowTopics = function letUserFollowTopics(req, res) {
-    var data = {
-        all_topics: [],
-        topics_followed: []
-    };
-    var id = req.params.id;
-    _topic2.default.find({}, function (err, topic) {
-        topic.map(function (item) {
-            data.all_topics.push({
-                'id': item._id,
-                'name': item.name
+    var token = getSigninToken(req.session.signinToken);
+    if (token) {
+        var data = {
+            all_topics: [],
+            topics_followed: []
+        };
+        var id = req.params.id;
+        _topic2.default.find({}, function (err, topic) {
+            topic.map(function (item) {
+                data.all_topics.push({
+                    'id': item._id,
+                    'name': item.name
+                });
             });
         });
-    });
-    _user2.default.find({ _id: id }, function (err, user) {
-        var item = JSON.parse(JSON.stringify(user));
-        item.map(function (el) {
-            data.topics_followed.push({
-                'id': el.topics_followed
+        _user2.default.find({ _id: id }, function (err, user) {
+            var item = JSON.parse(JSON.stringify(user));
+            item.map(function (el) {
+                data.topics_followed.push({
+                    'id': el.topics_followed
+                });
             });
+            res.json(data);
         });
-        res.json(data);
-    });
+    } else {
+        res.status(401).send({ success: false, msg: 'Unauthorized user. You must log in first.' });
+    }
 };
 
 var makeUserFollowTopics = exports.makeUserFollowTopics = function makeUserFollowTopics(req, res) {
@@ -103,4 +108,12 @@ var makeUserFollowTopics = exports.makeUserFollowTopics = function makeUserFollo
         if (err) return handleError(err);
         res.json(user);
     });
+};
+
+var getSigninToken = function getSigninToken(session) {
+    if (session) {
+        return session;
+    } else {
+        return null;
+    }
 };

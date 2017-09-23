@@ -55,35 +55,53 @@ export const getUserById = (req, res) => {
 }
 
 export const letUserFollowTopics = (req, res) => {
-    let data = { 
-        all_topics: [],
-        topics_followed: [],
+    let token = getSigninToken(req.session.signinToken)
+    if (token) {
+        let data = { 
+            all_topics: [],
+            topics_followed: [],
+        }
+        let id = req.params.id
+        Topic.find({}, (err, topic) => {
+            topic.map((item) => {
+                data.all_topics.push({
+                    'id': item._id,
+                    'name': item.name
+                })
+            })
+        })
+        User.find({_id: id}, (err, user) => {
+            let item = JSON.parse(JSON.stringify(user))
+            item.map((el) => {
+                data.topics_followed.push({
+                    'id': el.topics_followed
+                })
+            })
+            res.json(data)
+        })
+    } else {
+        res.status(401).send({success: false, msg: 'Unauthorized user. You must log in first.'})
     }
-    let id = req.params.id
-    Topic.find({}, (err, topic) => {
-        topic.map((item) => {
-            data.all_topics.push({
-                'id': item._id,
-                'name': item.name
-            })
-        })
-    })
-    User.find({_id: id}, (err, user) => {
-        let item = JSON.parse(JSON.stringify(user))
-        item.map((el) => {
-            data.topics_followed.push({
-                'id': el.topics_followed
-            })
-        })
-        res.json(data)
-    })
 }
 
 export const makeUserFollowTopics = (req, res) => {
-    let id = req.params.id
-    let topic = req.body.topic
-    User.findByIdAndUpdate(id, {$set: {topics_followed: topic}}, {new: true}, (err, user) => {
-        if (err) return handleError(err)
-        res.json(user)
-    })
+    let token = getSigninToken(req.session.signinToken)
+    if (token) {
+        let id = req.params.id
+        let topic = req.body.topic
+        User.findByIdAndUpdate(id, {$set: {topics_followed: topic}}, {new: true}, (err, user) => {
+            if (err) return handleError(err)
+            res.json(user)
+        })
+    } else {
+        res.status(401).send({success: false, msg: 'Unauthorized user. You must log in first.'})        
+    }
+}
+
+const getSigninToken = (session) => {
+    if (session) {
+        return session
+    } else {
+        return null
+    }
 }

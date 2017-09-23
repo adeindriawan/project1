@@ -9,17 +9,9 @@ var _mongoose = require('mongoose');
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
-var _passport = require('passport');
-
-var _passport2 = _interopRequireDefault(_passport);
-
 var _database = require('../config/database');
 
 var _database2 = _interopRequireDefault(_database);
-
-var _passport3 = require('../config/passport');
-
-var _passport4 = _interopRequireDefault(_passport3);
 
 var _jsonwebtoken = require('jsonwebtoken');
 
@@ -30,8 +22,6 @@ var _user = require('../models/user');
 var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var psp = (0, _passport4.default)(_passport2.default);
 
 var signin = exports.signin = function signin(req, res) {
     _user2.default.findOne({
@@ -49,6 +39,8 @@ var signin = exports.signin = function signin(req, res) {
                 if (isMatch && !err) {
                     // if user is found and password is right, create a token
                     var token = _jsonwebtoken2.default.sign({ data: user }, _database2.default.secret);
+                    // create session var signinToken with the token as the value
+                    req.session.signinToken = token;
                     // return the information including token as JSON
                     res.json({ success: true, token: 'JWT ' + token, data: user });
                 } else {

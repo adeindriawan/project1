@@ -1,11 +1,7 @@
 import mongoose from 'mongoose'
-import passport from 'passport'
 import config from '../config/database'
-import conpas from '../config/passport'
 import jwt from 'jsonwebtoken'
 import User from '../models/user'
-
-var psp = conpas(passport)
 
 export const signin = (req, res) => {
     User.findOne({
@@ -23,6 +19,8 @@ export const signin = (req, res) => {
                 if (isMatch && !err) {
                     // if user is found and password is right, create a token
                     let token = jwt.sign({data: user}, config.secret)
+                    // create session var signinToken with the token as the value
+                    req.session.signinToken = token
                     // return the information including token as JSON
                     res.json({success: true, token: 'JWT ' + token, data:  user})
                 } else {

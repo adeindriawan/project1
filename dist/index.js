@@ -12,6 +12,10 @@ var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _expressSession = require('express-session');
+
+var _expressSession2 = _interopRequireDefault(_expressSession);
+
 var _router = require('./router');
 
 var _router2 = _interopRequireDefault(_router);
@@ -21,6 +25,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // Initialize http server
 var app = (0, _express2.default)();
 var port = process.env.PORT || 5000;
+
+//config session and initialize it
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+};
+app.use((0, _expressSession2.default)(sess));
 
 // Make the server CORS-ENABLE
 app.use(function (req, res, next) {
