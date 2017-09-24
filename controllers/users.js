@@ -55,7 +55,7 @@ export const getUserById = (req, res) => {
 }
 
 export const letUserFollowTopics = (req, res) => {
-    let token = getSigninToken(req.session.signinToken)
+    let token = getAccessToken(req.session.accessToken)
     if (token) {
         let data = { 
             all_topics: [],
@@ -85,7 +85,7 @@ export const letUserFollowTopics = (req, res) => {
 }
 
 export const makeUserFollowTopics = (req, res) => {
-    let token = getSigninToken(req.session.signinToken)
+    let token = getAccessToken(req.session.accessToken)
     if (token) {
         let id = req.params.id
         let topic = req.body.topic
@@ -98,7 +98,7 @@ export const makeUserFollowTopics = (req, res) => {
     }
 }
 
-const getSigninToken = (session) => {
+const getAccessToken = (session) => {
     if (session) {
         return session
     } else {

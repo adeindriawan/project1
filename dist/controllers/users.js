@@ -72,7 +72,7 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
 };
 
 var letUserFollowTopics = exports.letUserFollowTopics = function letUserFollowTopics(req, res) {
-    var token = getSigninToken(req.session.signinToken);
+    var token = getAccessToken(req.session.accessToken);
     if (token) {
         var data = {
             all_topics: [],
@@ -102,15 +102,20 @@ var letUserFollowTopics = exports.letUserFollowTopics = function letUserFollowTo
 };
 
 var makeUserFollowTopics = exports.makeUserFollowTopics = function makeUserFollowTopics(req, res) {
-    var id = req.params.id;
-    var topic = req.body.topic;
-    _user2.default.findByIdAndUpdate(id, { $set: { topics_followed: topic } }, { new: true }, function (err, user) {
-        if (err) return handleError(err);
-        res.json(user);
-    });
+    var token = getAccessToken(req.session.accessToken);
+    if (token) {
+        var id = req.params.id;
+        var topic = req.body.topic;
+        _user2.default.findByIdAndUpdate(id, { $set: { topics_followed: topic } }, { new: true }, function (err, user) {
+            if (err) return handleError(err);
+            res.json(user);
+        });
+    } else {
+        res.status(401).send({ success: false, msg: 'Unauthorized user. You must log in first.' });
+    }
 };
 
-var getSigninToken = function getSigninToken(session) {
+var getAccessToken = function getAccessToken(session) {
     if (session) {
         return session;
     } else {

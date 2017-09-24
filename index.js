@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000
 
 //config session and initialize it
 var sess = {
-  secret: 'keyboard cat',
+  secret: 'kundud',
   cookie: {}
 }
 app.use(session(sess))
