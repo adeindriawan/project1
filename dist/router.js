@@ -34,6 +34,8 @@ router.route('/signup').post(_signup.signup);
 router.route('/signin').post(_signin.signin);
 router.route('/users').get(_users.getAllUsers);
 router.route('/users/:id').get(_users.getUserById);
+router.route('/teachers').get(_users.getAllTeachers);
+router.route('/students').get(_users.getAllStudents);
 router.route('/categories').get(_categories.getAllCategories);
 router.route('/subcategories').get(_subcategories.getAllSubcategories);
 router.route('/topics').get(_topics.getAllTopics);

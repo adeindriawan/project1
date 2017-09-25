@@ -54,6 +54,56 @@ export const getUserById = (req, res) => {
     })
 }
 
+export const getAllTeachers = (req, res) => {
+    let data = { teachers: [], }
+    User.find({role: 'Guru'}, (err, teacher) => {
+        teacher.map((item) => {
+            let month = parseInt(item.date_of_birth.getMonth()) + parseInt(1)
+            if (month < 10) month = '0' + month
+            let day = parseInt(item.date_of_birth.getDate())
+            if (day < 10) day = '0' + day
+            let dob = day + '-' + month + '-' + item.date_of_birth.getFullYear()
+            data.teachers.push({
+                'id': item._id,
+                'username': item.username,
+                'password': item.password,
+                'email': item.email,
+                'first_name': item.first_name,
+                'last_name': item.last_name,
+                'date_of_birth': dob,
+                'gender': item.gender,
+                'topics_followed': item.topics_followed
+            })
+        })
+        res.json(data)
+    })
+}
+
+export const getAllStudents = (req, res) => {
+    let data = { students: [], }
+    User.find({role: 'Murid'}, (err, student) => {
+        student.map((item) => {
+            let month = parseInt(item.date_of_birth.getMonth()) + parseInt(1)
+            if (month < 10) month = '0' + month
+            let day = parseInt(item.date_of_birth.getDate())
+            if (day < 10) day = '0' + day
+            let dob = day + '-' + month + '-' + item.date_of_birth.getFullYear()
+            data.students.push({
+                'id': item._id,
+                'username': item.username,
+                'password': item.password,
+                'email': item.email,
+                'first_name': item.first_name,
+                'last_name': item.last_name,
+                'date_of_birth': dob,
+                'gender': item.gender,
+                'topics_followed': item.topics_followed
+            })
+        })
+        res.json(data)
+    })
+}
+
 export const letUserFollowTopics = (req, res) => {
     let token = getAccessToken(req.session.accessToken)
     if (token) {

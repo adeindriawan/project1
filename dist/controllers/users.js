@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.makeUserFollowTopics = exports.letUserFollowTopics = exports.getUserById = exports.getAllUsers = undefined;
+exports.makeUserFollowTopics = exports.letUserFollowTopics = exports.getAllStudents = exports.getAllTeachers = exports.getUserById = exports.getAllUsers = undefined;
 
 var _user = require('../models/user');
 
@@ -67,6 +67,56 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
         data['role'] = item.role;
         data['topics_followed'] = item.topics_followed;
 
+        res.json(data);
+    });
+};
+
+var getAllTeachers = exports.getAllTeachers = function getAllTeachers(req, res) {
+    var data = { teachers: [] };
+    _user2.default.find({ role: 'Guru' }, function (err, teacher) {
+        teacher.map(function (item) {
+            var month = parseInt(item.date_of_birth.getMonth()) + parseInt(1);
+            if (month < 10) month = '0' + month;
+            var day = parseInt(item.date_of_birth.getDate());
+            if (day < 10) day = '0' + day;
+            var dob = day + '-' + month + '-' + item.date_of_birth.getFullYear();
+            data.teachers.push({
+                'id': item._id,
+                'username': item.username,
+                'password': item.password,
+                'email': item.email,
+                'first_name': item.first_name,
+                'last_name': item.last_name,
+                'date_of_birth': dob,
+                'gender': item.gender,
+                'topics_followed': item.topics_followed
+            });
+        });
+        res.json(data);
+    });
+};
+
+var getAllStudents = exports.getAllStudents = function getAllStudents(req, res) {
+    var data = { students: [] };
+    _user2.default.find({ role: 'Murid' }, function (err, student) {
+        student.map(function (item) {
+            var month = parseInt(item.date_of_birth.getMonth()) + parseInt(1);
+            if (month < 10) month = '0' + month;
+            var day = parseInt(item.date_of_birth.getDate());
+            if (day < 10) day = '0' + day;
+            var dob = day + '-' + month + '-' + item.date_of_birth.getFullYear();
+            data.students.push({
+                'id': item._id,
+                'username': item.username,
+                'password': item.password,
+                'email': item.email,
+                'first_name': item.first_name,
+                'last_name': item.last_name,
+                'date_of_birth': dob,
+                'gender': item.gender,
+                'topics_followed': item.topics_followed
+            });
+        });
         res.json(data);
     });
 };
