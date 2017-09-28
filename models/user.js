@@ -18,6 +18,10 @@ var UserSchema = new Schema({
         type: String,
         required: true,
     },
+    email_verified: {
+        type: Boolean,
+        default: false,
+    },
     first_name: {
         type: String,
         required: true,

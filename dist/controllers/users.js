@@ -33,6 +33,7 @@ var getAllUsers = exports.getAllUsers = function getAllUsers(req, res) {
                 'username': item.username,
                 'password': item.password,
                 'email': item.email,
+                'email_verified': item.email_verified,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
                 'date_of_birth': dob,
@@ -60,6 +61,7 @@ var getUserById = exports.getUserById = function getUserById(req, res) {
         data['username'] = item.username;
         data['password'] = item.password;
         data['email'] = item.email;
+        data['email_verified'] = item.email_verified;
         data['first_name'] = item.first_name;
         data['last_name'] = item.last_name;
         data['date_of_birth'] = dob;
@@ -85,6 +87,7 @@ var getAllTeachers = exports.getAllTeachers = function getAllTeachers(req, res) 
                 'username': item.username,
                 'password': item.password,
                 'email': item.email,
+                'email_verified': item.email_verified,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
                 'date_of_birth': dob,
@@ -110,6 +113,7 @@ var getAllStudents = exports.getAllStudents = function getAllStudents(req, res) 
                 'username': item.username,
                 'password': item.password,
                 'email': item.email,
+                'email_verified': item.email_verified,
                 'first_name': item.first_name,
                 'last_name': item.last_name,
                 'date_of_birth': dob,

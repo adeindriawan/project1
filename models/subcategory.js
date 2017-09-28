@@ -8,7 +8,7 @@ var SubcategorySchema = new Schema({
         type: String,
         unique: true,
     },
-    category: {
+    id_category: {
         type: String,
     },
 })

@@ -24,7 +24,7 @@ var TopicSchema = new _mongoose.Schema({
     rating: {
         type: Number
     },
-    subcategory: {
+    id_subcategory: {
         type: String
     }
 });

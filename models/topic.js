@@ -11,7 +11,7 @@ var TopicSchema = new Schema({
     rating: {
         type: Number,
     },
-    subcategory: {
+    id_subcategory: {
         type: String,
     }
 })
