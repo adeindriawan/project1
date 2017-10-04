@@ -37,6 +37,7 @@ router.route('/users/:id').get(_users.getUserById);
 router.route('/teachers').get(_users.getAllTeachers);
 router.route('/students').get(_users.getAllStudents);
 router.route('/categories').get(_categories.getAllCategories);
+router.route('/categorieswithsubs').get(_categories.aggCategory);
 router.route('/subcategories').get(_subcategories.getAllSubcategories);
 router.route('/topics').get(_topics.getAllTopics);
 router.route('/users/:id/topics/follow').get(_users.letUserFollowTopics);

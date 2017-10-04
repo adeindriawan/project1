@@ -10,6 +10,7 @@ import { getAllStudents } from './controllers/users'
 import { letUserFollowTopics } from './controllers/users'
 import { makeUserFollowTopics } from './controllers/users'
 import { getAllCategories } from './controllers/categories'
+import { aggCategory } from './controllers/categories'
 import { getAllSubcategories } from './controllers/subcategories'
 import { getAllTopics } from './controllers/topics'
 
@@ -26,6 +27,7 @@ router.route('/users/:id').get(getUserById)
 router.route('/teachers').get(getAllTeachers)
 router.route('/students').get(getAllStudents)
 router.route('/categories').get(getAllCategories)
+router.route('/categorieswithsubs').get(aggCategory)
 router.route('/subcategories').get(getAllSubcategories)
 router.route('/topics').get(getAllTopics)
 router.route('/users/:id/topics/follow').get(letUserFollowTopics)

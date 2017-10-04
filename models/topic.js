@@ -11,8 +11,9 @@ var TopicSchema = new Schema({
     rating: {
         type: Number,
     },
-    id_subcategory: {
-        type: String,
+    _subcategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'subcategory',
     }
 })
 

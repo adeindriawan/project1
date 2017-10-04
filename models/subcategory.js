@@ -8,8 +8,9 @@ var SubcategorySchema = new Schema({
         type: String,
         unique: true,
     },
-    id_category: {
-        type: String,
+    _category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'category',
     },
 })
 
