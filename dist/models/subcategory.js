@@ -21,8 +21,9 @@ var SubcategorySchema = new _mongoose.Schema({
         type: String,
         unique: true
     },
-    id_category: {
-        type: String
+    _category: {
+        type: _mongoose2.default.Schema.Types.ObjectId,
+        ref: 'category'
     }
 });
 

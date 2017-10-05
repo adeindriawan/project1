@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getAllSubcategories = undefined;
+exports.aggSubcategory = exports.getAllSubcategories = undefined;
 
 var _subcategory = require('../models/subcategory');
 
@@ -18,5 +18,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var getAllSubcategories = exports.getAllSubcategories = function getAllSubcategories(req, res) {
     _subcategory2.default.find({}, function (err, subkategori) {
         res.json(subkategori);
+    });
+};
+
+var aggSubcategory = exports.aggSubcategory = function aggSubcategory(req, res) {
+    _subcategory2.default.aggregate([{
+        $lookup: {
+            from: 'topic',
+            localField: '_id',
+            foreignField: '_subcategory',
+            as: 'topics'
+        }
+    }]).exec(function (err, results) {
+        res.json(results);
     });
 };
