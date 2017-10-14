@@ -27,7 +27,8 @@ export const signin = (req, res) => {
                     // assign session variables to a new session object model
                     var newSession = new Session({
                         session_id: req.session.id,
-                        user_id: req.session.userId,
+                        session_token: req.session.accessToken,
+                        _user: mongoose.Types.ObjectId(req.session.userId),
                         user_role: req.session.userRole,
                         session_started: new Date()
                     })

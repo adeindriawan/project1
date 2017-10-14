@@ -9,9 +9,13 @@ var SessionSchema = new Schema({
         type: String,
         required: true,
     },
-    user_id: {
+    session_token: {
         type: String,
         required: true,
+    },
+    _user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
     },
     user_role: {
         type: String,

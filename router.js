@@ -5,6 +5,7 @@ import { signup } from './controllers/signup'
 import { signin } from './controllers/signin'
 import { getAllUsers } from './controllers/users'
 import { getUserById } from './controllers/users'
+import { getUserDataFromToken } from './controllers/users'
 import { getAllTeachers } from './controllers/users'
 import { getAllStudents } from './controllers/users'
 import { letUserFollowTopics } from './controllers/users'
@@ -25,6 +26,7 @@ router.route('/signup').post(signup)
 router.route('/signin').post(signin)
 router.route('/users').get(getAllUsers)
 router.route('/users/:id').get(getUserById)
+router.route('/users/data/:token').get(getUserDataFromToken)
 router.route('/teachers').get(getAllTeachers)
 router.route('/students').get(getAllStudents)
 router.route('/categories').get(getAllCategories)
