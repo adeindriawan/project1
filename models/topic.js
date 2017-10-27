@@ -14,6 +14,12 @@ var TopicSchema = new Schema({
     _subcategory: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'subcategory',
+    },
+    active_students: {
+        Type: Number,
+    },
+    active_tutors: {
+        Type: Number,
     }
 })
 

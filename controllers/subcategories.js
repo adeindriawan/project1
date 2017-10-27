@@ -16,6 +16,13 @@ export const aggSubcategory = (req, res) => {
                 foreignField: '_subcategory',
                 as: 'topics',
             }
+        },
+        {
+            $project: {
+                "name": 1,
+                "topics.name": 1,
+                "topics.rating": 1
+            }
         }
     ]).exec((err, results) => {
         res.json(results)

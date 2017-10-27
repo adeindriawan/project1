@@ -15,6 +15,9 @@ import { aggCategory } from './controllers/categories'
 import { getAllSubcategories } from './controllers/subcategories'
 import { aggSubcategory } from './controllers/subcategories'
 import { getAllTopics } from './controllers/topics'
+import { createToken } from './controllers/tokens'
+import { assignTokenToUser } from './controllers/tokens'
+import { createClass } from './controllers/classes'
 
 const app = express();
 // initialize the router
@@ -36,5 +39,8 @@ router.route('/subcategories/topics').get(aggSubcategory)
 router.route('/topics').get(getAllTopics)
 router.route('/users/:id/topics/follow').get(letUserFollowTopics)
 router.route('/users/:id/topics/follow').post(makeUserFollowTopics)
+router.route('/token/create/').post(createToken)
+router.route('/token/:id/assign').post(assignTokenToUser)
+router.route('/class/create').post(createClass)
 
 export default router;
