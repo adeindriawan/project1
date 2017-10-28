@@ -11,7 +11,8 @@ import { getAllStudents } from './controllers/users'
 import { letUserFollowTopics } from './controllers/users'
 import { makeUserFollowTopics } from './controllers/users'
 import { getAllCategories } from './controllers/categories'
-import { aggCategory } from './controllers/categories'
+import { aggCategoryToSubcategory } from './controllers/categories'
+import { aggCategoryToTopic } from './controllers/categories'
 import { getAllSubcategories } from './controllers/subcategories'
 import { aggSubcategory } from './controllers/subcategories'
 import { getAllTopics } from './controllers/topics'
@@ -33,7 +34,8 @@ router.route('/users/data/:token').get(getUserDataFromToken)
 router.route('/teachers').get(getAllTeachers)
 router.route('/students').get(getAllStudents)
 router.route('/categories').get(getAllCategories)
-router.route('/categories/subcategories').get(aggCategory)
+router.route('/categories/subcategories').get(aggCategoryToSubcategory)
+router.route('/categories/topics').get(aggCategoryToTopic)
 router.route('/subcategories').get(getAllSubcategories)
 router.route('/subcategories/topics').get(aggSubcategory)
 router.route('/topics').get(getAllTopics)

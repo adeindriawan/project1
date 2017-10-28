@@ -21,7 +21,9 @@ export const aggSubcategory = (req, res) => {
             $project: {
                 "name": 1,
                 "topics.name": 1,
-                "topics.rating": 1
+                "topics.rating": 1,
+                "topics.active_students": 1,
+                "topics.active_tutors": 1
             }
         }
     ]).exec((err, results) => {
