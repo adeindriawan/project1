@@ -10,6 +10,7 @@ var TopicSchema = new Schema({
     },
     rating: {
         type: Number,
+        default: 0
     },
     _subcategory: {
         type: mongoose.Schema.Types.ObjectId,
@@ -17,9 +18,11 @@ var TopicSchema = new Schema({
     },
     active_students: {
         Type: Number,
+        default: 0
     },
     active_tutors: {
         Type: Number,
+        default: 0
     }
 })
 
