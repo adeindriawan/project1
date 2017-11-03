@@ -12,6 +12,11 @@ var KelasSchema = new Schema({
         type: Date,
         required: true
     },
+    _tutor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
+    },
     _token: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'token',

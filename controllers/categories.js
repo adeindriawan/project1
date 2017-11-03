@@ -56,3 +56,49 @@ export const aggCategoryToTopic = (req, res) => {
         res.json(results)
     })
 }
+
+export const aggCategoryToClass = (req, res) => {
+    Kategori.aggregate([
+        {
+            $lookup: {
+                from: 'subcategory',
+                localField: '_id',
+                foreignField: '_category',
+                as: 'subcategories',
+            }
+        }, {
+            $unwind: "$subcategories"
+        }, {
+            $lookup: {
+                from: 'topic',
+                localField: 'subcategories._id',
+                foreignField: '_subcategory',
+                as: 'topics'
+            }
+        }, {
+            $unwind: '$topics'
+        }, {
+            $lookup: {
+                from: 'class',
+                localField: 'topics._id',
+                foreignField: '_topic',
+                as: 'classes'
+            }
+        }, {
+            $project: {
+                'name': 1,
+                'icon': 1,
+                'subcategories.name': 1,
+                "topics.name": 1,
+                "topics.rating": 1,
+                "topics.active_students": 1,
+                "topics.active_tutors": 1,
+                'classes.class_name': 1,
+                'classes.class_date': 1,
+                'classes._tutor': 1
+            }
+        }
+    ]).exec((err, results) => {
+        res.json(results)
+    })
+}
