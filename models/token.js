@@ -10,9 +10,11 @@ var TokenSchema = new Schema({
     },
     quota: {
         type: Number,
+        required: true
     },
     exp_date: {
-        type: Date
+        type: Date,
+        required: true
     },
     _user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -20,6 +22,7 @@ var TokenSchema = new Schema({
     },
     price: {
         type: Number,
+        required: true
     }
 })
 

@@ -6,18 +6,21 @@ export const createClass = (req, res) => {
     let class_date = req.body.class_date
     let token = req.body.token
     let topic = req.body.topic
+    let tutor = req.body.tutor
 
     var data = {}
     data['class_name'] = class_name
     data['class_date'] = class_date
     data['token'] = mongoose.Types.ObjectId(token)
     data['topic'] = mongoose.Types.ObjectId(topic)
+    data['tutor'] = mongoose.Types.ObjectId(tutor)
 
     var newClass = new Kelas({
         class_name: class_name,
         class_date: class_date,
         _token: mongoose.Types.ObjectId(token),
         _topic: mongoose.Types.ObjectId(topic),
+        _tutor: mongoose.Types.ObjectId(tutor)
     })
     newClass.save((err) => {
         if (err) {

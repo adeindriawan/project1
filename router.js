@@ -21,6 +21,9 @@ import { createToken } from './controllers/tokens'
 import { assignTokenToUser } from './controllers/tokens'
 import { createClass } from './controllers/classes'
 import { aggClassToTutor } from './controllers/classes'
+import { aggTopicToClass } from './controllers/topics'
+import {aggTopicToClassBasedOnId } from './controllers/topics'
+import { aggTopicToTutor } from './controllers/topics'
 
 const app = express();
 // initialize the router
@@ -42,6 +45,9 @@ router.route('/categories/classes').get(aggCategoryToClass)
 router.route('/subcategories').get(getAllSubcategories)
 router.route('/subcategories/topics').get(aggSubcategory)
 router.route('/topics').get(getAllTopics)
+router.route('/topics/:id').get(aggTopicToClassBasedOnId)
+router.route('/topics/classes').get(aggTopicToClass)
+router.route('/topics/tutors').get(aggTopicToTutor)
 router.route('/users/:id/topics/follow').get(letUserFollowTopics)
 router.route('/users/:id/topics/follow').post(makeUserFollowTopics)
 router.route('/token/create/').post(createToken)

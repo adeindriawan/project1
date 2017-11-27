@@ -46,6 +46,7 @@ export const aggCategoryToTopic = (req, res) => {
                 'name': 1,
                 'icon': 1,
                 'subcategories.name': 1,
+                'topics._id': 1,
                 "topics.name": 1,
                 "topics.rating": 1,
                 "topics.active_students": 1,
