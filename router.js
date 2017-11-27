@@ -24,6 +24,7 @@ import { aggClassToTutor } from './controllers/classes'
 import { aggTopicToClass } from './controllers/topics'
 import {aggTopicToClassBasedOnId } from './controllers/topics'
 import { aggTopicToTutor } from './controllers/topics'
+import { aggClassToTutorBasedOnId } from './controllers/classes'
 
 const app = express();
 // initialize the router
@@ -48,6 +49,7 @@ router.route('/topics').get(getAllTopics)
 router.route('/topics/:id').get(aggTopicToClassBasedOnId)
 router.route('/topics/classes').get(aggTopicToClass)
 router.route('/topics/tutors').get(aggTopicToTutor)
+router.route('/classes/:id').get(aggClassToTutorBasedOnId)
 router.route('/users/:id/topics/follow').get(letUserFollowTopics)
 router.route('/users/:id/topics/follow').post(makeUserFollowTopics)
 router.route('/token/create/').post(createToken)

@@ -65,3 +65,42 @@ export const aggClassToTutor = (req, res) => {
         res.json(results)
     })
 }
+
+export const aggClassToTutorBasedOnId = (req, res) => {
+    let class_id = mongoose.Types.ObjectId(req.params.id)
+    
+    Kelas.aggregate([
+        {
+            $match: { _id: class_id }
+        }, {
+            $lookup: {
+                from: 'token',
+                localField: '_token',
+                foreignField: '_id',
+                as: 'token'
+            }
+        }, {
+            $unwind: '$token'
+        }, {
+            $lookup: {
+                from: 'user',
+                localField: 'token._user',
+                foreignField: '_id',
+                as: 'tutor'
+            }
+        }, {
+            $project: {
+                'class_name': 1,
+                'class_date': 1,
+                '_token': 1,
+                '_topic': 1,
+                'token.price': 1,
+                'token.quota': 1,
+                'token._user': 1,
+                'tutor.username': 1
+            }
+        }
+    ]).exec((err, results) => {
+        res.json(results)
+    })
+}
