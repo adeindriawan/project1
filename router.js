@@ -12,6 +12,7 @@ import { letUserFollowTopics } from './controllers/users'
 import { makeUserFollowTopics } from './controllers/users'
 import { getAllCategories } from './controllers/categories'
 import { aggCategoryToSubcategory } from './controllers/categories'
+import { getSubcategoriesByCategoryId } from './controllers/subcategories'
 import { aggCategoryToTopic } from './controllers/categories'
 import { aggCategoryToClass } from './controllers/categories'
 import { getAllSubcategories } from './controllers/subcategories'
@@ -41,6 +42,7 @@ router.route('/teachers').get(getAllTeachers)
 router.route('/students').get(getAllStudents)
 router.route('/categories').get(getAllCategories)
 router.route('/categories/subcategories').get(aggCategoryToSubcategory)
+router.route('/categories/:id/subcategories').get(getSubcategoriesByCategoryId)
 router.route('/categories/topics').get(aggCategoryToTopic)
 router.route('/categories/classes').get(aggCategoryToClass)
 router.route('/subcategories').get(getAllSubcategories)

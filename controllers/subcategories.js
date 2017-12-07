@@ -30,3 +30,17 @@ export const aggSubcategory = (req, res) => {
         res.json(results)
     })
 }
+
+export const getSubcategoriesByCategoryId = (req, res) => {
+    let id = mongoose.Types.ObjectId(req.params.id)
+
+    if (id) {
+        let data = {}
+
+        Subkategori.find({_category: id}, (err, sub) => {
+            res.json(sub)
+        })
+    } else {
+        res.send('The category ID is not defined.')
+    }
+}
