@@ -7,7 +7,8 @@ import mongoose from 'mongoose'
 export const getAllCategories = (req, res) => {
     let output = {};
     let ListOfCategories = () => {
-        Kategori.find({},  (err, kategori) => {
+        Kategori.find({},  (err, kategori) => { // "59b6ad46734d1d2c1614f73f" "59b6ae07734d1d2c1614f7db"
+            let iteration = 0
             let categories = []
             if (err) {
                 return
@@ -22,12 +23,14 @@ export const getAllCategories = (req, res) => {
             })
             output['categories'] = categories
             catList(output['categories'])
+            // console.log(categories)
         })
     }
 
     let catList = (list) => {
+        let iteration = 0
         list.map((i) => {
-            Subkategori.find({_category: i.id}, (err, sub) => {
+            Subkategori.find({_category: i.id}, (err, sub) => { 
                 let subcategories = []
                 if (err) {
                     return
@@ -39,58 +42,73 @@ export const getAllCategories = (req, res) => {
                         'topics': []
                     })
                 })
-                i['subcategories'] = subcategories
-                subList(subcategories)
+                i['subcategories'] = subcategories // kenapa ga pake .push() tetep bisa ya?
+                iteration++
+                if (list.length === iteration) {
+                    subList(list)
+                }
             })
         })
     }
 
     let subList = (list) => {
-        list.map((i) => {
-            Topik.find({_subcategory: i.id}, (err, top) => {
-                let topics = []
-                if (err) {
-                    return
-                }
-                top.map((i) => {
-                    topics.push({
-                        'id': i._id,
-                        'name': i.name,
-                        'active_tutors': i.active_tutors,
-                        'active_students': i.active_students,
-                        'rating': i.rating,
-                        'classes': []
+        let iteration = 0
+        let arrSub = []
+        list.map((i) => { // memecah object category untuk  mengambil object subcategory
+            let subs = i['subcategories']
+            for (var u = 0; u < subs.length; u++) {
+                arrSub.push(subs[u]['id'])
+                let arrTop = subs[u]['topics']
+                Topik.find({_subcategory: subs[u]['id']}, (err, top) => {
+                    if (err) {
+                        return
+                    }
+                    top.map((e) => {
+                        arrTop.push({
+                            'id': e._id,
+                            'name': e.name,
+                            'active_tutors': e.active_tutors,
+                            'active_students': e.active_students,
+                            'rating': e.rating,
+                            'classes': []
+                        })
                     })
+                    iteration++
+                    if (iteration === arrSub.length) { // kalau hanya 1 category, cukup dengan iteration === subs.length
+                        topList(list)
+                    }
                 })
-                i['topics'] = topics
-                topList(topics)
-            })
+            }
         })
     }
 
     let topList = (list) => {
         let iteration = 0
+        let arrTop = []
         list.map((i) => {
-            Kelas.find({_topic: i.id}, (err, cla) => {
-                let classes = []
-                if (err) {
-                    return
-                }
-                cla.map((i) => {
-                    classes.push({
-                        'id': i._id,
-                        'class_name': i.class_name,
-                        'class_date': i.class_date,
-                        'token': i._token,
-                        'tutor': i._tutor
+            let subs = i['subcategories'] // ['subcategories': []]
+            for (var u = 0; u < subs.length; u++) {
+                let tops = subs[u]['topics']
+                for (var e = 0; e < tops.length; e++) {
+                    arrTop.push(tops[e]['id'])
+                    let arrCla = tops[e]['classes']
+                    Kelas.find({_topic: tops[e]['id']}, (err, cla) => {
+                        cla.map((a) => {
+                            arrCla.push({
+                                'id': a._id,
+                                'class_name': a.class_name,
+                                'class_date': a.class_date,
+                                'token': a._token,
+                                'tutor': a._tutor
+                            })
+                        })
+                        iteration++
+                        if (iteration === arrTop.length) { // kalau hanya 1 category, cukup dengan iteration === tops.length
+                            sendOutput(list)
+                        }
                     })
-                })
-                i['classes'] = classes
-                iteration++
-                if (iteration === list.length) {
-                    sendOutput(output)
                 }
-            })
+            }
         })
     }
 
